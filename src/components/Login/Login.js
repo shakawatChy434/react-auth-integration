@@ -9,7 +9,7 @@ const Login = () => {
             <h2>Please Login</h2>
             <button onClick={singInUsinGoogle}>Google Login</button>
             <br /> <br />
-            <input type="checkbox" name="Remember me" id="" value="Remember me" /> <br />
+           
             <Link to="/register">New User?</Link>
         </div>
     );
