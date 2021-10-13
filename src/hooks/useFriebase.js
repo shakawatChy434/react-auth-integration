@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import initAuthentication from "../Fierbase/Firebase.init";
-import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut, /* GithubAuthProvider, */ } from "firebase/auth";
 
 
 initAuthentication();
@@ -12,6 +12,7 @@ const useFirebase = () => {
 
 
     const googlePrvider = new GoogleAuthProvider();
+    /* const githubProvider = new GithubAuthProvider(); */
 
     const auth = getAuth();
     const singInUsinGoogle = () => {
@@ -21,10 +22,26 @@ const useFirebase = () => {
                 setUser(result.user)
             })
             .catch(error => {
-                setError(error.message)
+                setError(error.message);
             })
     }
-    /* Log Out ke Kaj Korano Jonno eita extra korthe hoi */
+
+    /* Github Login Activities */
+    /*     const singInUsingGithub = () => {
+            signInWithPopup(auth, githubProvider)
+                .then(result => {
+                    console.log(result.user);
+                    setUser(result.user);
+                })
+        }
+     */    /* Log Out ke Kaj Korano Jonno eita extra korthe hoi */
+    /* Class No : 04 */
+    const logout = () => {
+        signOut(auth)
+            .then(() => {
+                setUser({});
+            })
+    }
     /* Class No : 03  Start*/
     useEffect(() => {
         onAuthStateChanged(auth, user => {
@@ -33,13 +50,16 @@ const useFirebase = () => {
                 setUser(user);
             }
         })
-    }, [])
+    }, [auth]);
     /* Class No : 03  End*/
+
 
     return {
         user,
         error,
         singInUsinGoogle,
+        /* singInUsingGithub, */
+        logout,
     }
 }
 

@@ -1,18 +1,21 @@
 import React from 'react';
 import './Header.css'
 import { Link } from 'react-router-dom';
-import useFirebase from '../../hooks/useFriebase';
+import useAuth from '../../hooks/useAuth';
 
 const Header = () => {
-    const { user } = useFirebase();
+    const { user, logout } = useAuth();
     return (
         <div className="header">
             <Link to="/home">Home</Link>
+            <Link to="/shipping">Shipping</Link>
+            <Link to="/placeorder">Place Order</Link>
             <Link to="/register">Register</Link>
             <Link to="/login">Login</Link>
-            {user?.email && <button>Log Out</button>}
+            <span>{user.displayName} </span>
+            {user?.email && <button onClick={logout}>Log Out</button>}
         </div>
-    );
+    )
 };
 
 export default Header;
